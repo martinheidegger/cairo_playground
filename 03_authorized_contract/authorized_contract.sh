@@ -1,6 +1,9 @@
 #!/bin/bash
 source ~/cairo_venv/bin/activate
-source ./utils/contract.sh
+
+cd "$(dirname $0)"
+
+source ../utils/contract.sh
 
 prepare_and_use_contract "authorized_contract"
 

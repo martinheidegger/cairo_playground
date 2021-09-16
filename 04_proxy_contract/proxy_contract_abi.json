@@ -1,0 +1,34 @@
+[
+    {
+        "inputs": [
+            {
+                "name": "contract_address",
+                "type": "felt"
+            },
+            {
+                "name": "amount",
+                "type": "felt"
+            }
+        ],
+        "name": "call_increase_balance",
+        "outputs": [],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "contract_address",
+                "type": "felt"
+            }
+        ],
+        "name": "call_get_balance",
+        "outputs": [
+            {
+                "name": "res",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

@@ -1,6 +1,8 @@
 #!/bin/bash
 source ~/cairo_venv/bin/activate
 
+cd "$(dirname $0)"
+
 # The contract address on ethereum can be found at following URL (it used to be necessary for verification)
 SHARP_ADDRESS=$((cat "${VIRTUAL_ENV}/lib/python3.9/site-packages/starkware/cairo/sharp/config.json") | jq -r ".verifier_address")
 
@@ -19,12 +21,12 @@ echo "> Running ${NAME}.cairo with ${NAME}_input.json"
         --program_input="${NAME}_input.json" \
         --print_output \
         --layout=small \
-        --cairo_pie_output="${NAME}_pie"
+        --cairo_pie_output="${NAME}.pie"
 
-echo "> Verifying ${NAME}_pie"
+echo "> Verifying ${NAME}.pie"
     cairo-run \
         --layout=small \
-        --run_from_cairo_pie="${NAME}_pie"
+        --run_from_cairo_pie="${NAME}.pie"
 
 function job_key () {
     regex='Job key: ([a-f0-9-]*)'
@@ -48,7 +50,6 @@ echo "> Sharpening ${NAME} at $(date)"
     JOB_KEY=$(job_key "${CONTENT}")
     FACT=$(fact "${CONTENT}")
 
-
 echo "> Submitted to goerli ${SHARP_ADDRESS} at $(date) with job: ${JOB_KEY} and fact: ${FACT}"
 
 while :; do
@@ -57,7 +58,7 @@ while :; do
         echo "> Processed at $(date)"
         break
     else
-        echo "... ${STATUS}"
+        echo "... ${STATUS} at $(date)"
         sleep 10
     fi
 done
