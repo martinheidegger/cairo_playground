@@ -44,8 +44,49 @@ function await_tx {
     done
 }
 
+function contract_get_list {
+    COUNT=`contract_call get_${1}_count "${2}"`
+    INDEX=0
+    JSON='['
+    while [[ $INDEX < $COUNT ]]; do
+        ENTRY=`contract_call get_${1}_at "${2} ${INDEX}"`
+        if [[ $INDEX != 0 ]]; then
+            JSON="${JSON}, \"${ENTRY}\""
+        else
+            JSON="${JSON}\"${ENTRY}\""
+        fi
+        INDEX=$(( $INDEX + 1 ))
+    done
+    echo "${JSON}]"
+}
+
+function await_tx_pending {
+    while :; do
+        STATUS=`starknet tx_status --id $1 | jq -r .tx_status`
+        if [[ $STATUS == "ACCEPTED_ONCHAIN" || $STATUS == "PENDING" ]]; then
+            echo "> ${STATUS} $(date)"
+            break
+        elif [[ $STATUS == "REJECTED" ]]; then
+            echo "> ${STATUS} $(date)"
+            starknet tx_status --id $1 | jq .tx_failure_reason
+            break
+        elif [[ $STATUS == "NOT_RECEIVED" ]]; then
+            echo "> ${STATUS} $(date)"
+            break
+        else
+            echo "... ${STATUS} $(date)"
+            sleep 10
+        fi
+    done
+}
+
 function create_private_key {
-    node -p "require('@consento/bigint-codec').bigUintLE.decode(crypto.randomBytes(31)).toString()"
+    # This function is unsafe and should only be used in tests
+    # https://github.com/starkware-libs/cairo-lang/blob/7526bffb78ba64976c4f019b04d059992b43c734/src/starkware/python/utils.py#L121
+    python3 -c "
+from starkware.python.utils import (get_random_instance)
+
+print(get_random_instance().getrandbits(250))"
 }
 
 function public_key_from_private_key {
@@ -82,6 +123,10 @@ function prepare_and_use_contract {
             starknet-compile ${NAME}.cairo \
                 --output ${NAME}_compiled.json \
                 --abi ${NAME}_abi.json
+            
+            if [[ $? != 0 ]]; then
+                exit 1
+            fi
 
             cat ${NAME}_abi.json | jq .
 
@@ -97,7 +142,7 @@ function prepare_and_use_contract {
         echo "${CONTENT}"
         TX_ID=$(transaction_id "${CONTENT}")
 
-        await_tx $TX_ID
+        await_tx_pending $TX_ID
 
         export CONTRACT_ADDRESS=$(contract_address "${CONTENT}")
 

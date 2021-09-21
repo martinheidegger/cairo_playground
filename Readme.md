@@ -32,3 +32,4 @@ To run any of the scripts you need to install the cairo version specified in [.c
 - [`02_contract`](./02_contract/Readme.md)
 - [`03_authorized_contract`](./03_authorized_contract/Readme.md)
 - [`04_proxy_contract`](./04_proxy_contract/Readme.md)
+- [`05_stored_list](./05_stored_list/Readme.md)
