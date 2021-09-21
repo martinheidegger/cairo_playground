@@ -21,6 +21,10 @@ function add_key {
     await_tx_pending "${TRANSACTION_ID}"
 }
 
+echo "> Running tests"
+
+    pytest ./stored_list_test.py
+
 echo "> Creating a user"
 
     USER=`create_private_key`

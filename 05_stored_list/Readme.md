@@ -11,10 +11,15 @@ $ ./stored_list.sh
 
 **Before you run it, this will:**
 
-1. Prepare and publish the cairo contract
-2. Receive the public balance of the contract created in 02
-4. Increase the public balance of the contract created in 02
-5. Receive the changed public balance of the contract created in 02
+1. Run the python tests for the contract
+2. Looking for a unknown key of a unknown user
+3. Test the return of -1
+4. Receive the count of keys for an unknown user
+5. Adding two keys for a user
+6. Replacing a key at an index
+7. Removing the last entry
+8. Finding the index of a key with several keys added
+9. Removing a key at a position
 
 ## What I learned using this example
 
