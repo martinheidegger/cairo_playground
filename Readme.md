@@ -26,6 +26,8 @@ was done on uncorrupted code without knowing the result.
 
 To run any of the scripts you need to install the cairo version specified in [.cairorc](./.cairorc).
 
+From part 06 on, you will need a modern version of Node.js and run `npm install` in this folder.  It would also be good to specify a `INFURA_PROJECT_ID` environment variable that can be setup at https://infura.io or - if that is a problem - a `ETHERSCAN_API_KEY` variable to avoid error messages when requesting code.
+
 ---
 
 - [`01_find-index`](./01_find-index/Readme.md)
@@ -33,3 +35,4 @@ To run any of the scripts you need to install the cairo version specified in [.c
 - [`03_authorized_contract`](./03_authorized_contract/Readme.md)
 - [`04_proxy_contract`](./04_proxy_contract/Readme.md)
 - [`05_stored_list](./05_stored_list/Readme.md)
+- [`06_blockchain_data](./06_blockchain_data/Readme.md)

@@ -152,7 +152,8 @@ function prepare_and_use_contract {
         CONTENT=$(starknet deploy --contract ${NAME}_compiled.json)
 
         echo "${CONTENT}"
-        TX_ID=$(transaction_id "${CONTENT}")
+        TX_ID=$(
+            transaction_id "${CONTENT}")
 
         await_tx_pending $TX_ID
 
