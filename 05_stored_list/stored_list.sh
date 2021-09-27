@@ -88,10 +88,6 @@ echo "> Finding the index of ${KEY3}"
 
     contract_call get_key_index "${USER} ${KEY3}"
 
-echo "> Finding the index of a unknown key"
-
-    contract_call get_key_index "${USER} abcd"
-
 echo "> Removing key at 1"
 
     CONTENT=`contract_invoke remove_key_at "${USER} 1"`
