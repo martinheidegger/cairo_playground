@@ -112,6 +112,18 @@ function transaction_id () {
     echo ${BASH_REMATCH[1]}
 }
 
+function derive_key () {
+    python3 -c "from starkware.starknet.public.abi import get_storage_var_address
+
+print(hex(get_storage_var_address('${1}')))"
+}
+
+function derive_key_dec () {
+    python3 -c "from starkware.starknet.public.abi import get_storage_var_address
+
+print(get_storage_var_address('${1}'))"
+}
+
 function prepare_and_use_contract {
     export NAME=$1
     SHA=`shasum "${NAME}.cairo" 2> /dev/null || echo ""`

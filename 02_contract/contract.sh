@@ -13,9 +13,7 @@ echo "> Receiving the balance at ${CONTRACT_ADDRESS}"
     echo "${BALANCE}"
 
 echo "> Receiving the balance using a key"
-    BALANCE_KEY=`python3 -c "from starkware.starknet.public.abi import get_storage_var_address
-
-print(get_storage_var_address('balance'))"`
+    BALANCE_KEY=`derive_key_dec balance`
 
     echo "Balance Key: ${BALANCE_KEY}"
 
