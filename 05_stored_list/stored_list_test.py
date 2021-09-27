@@ -3,14 +3,12 @@ import pytest
 import asyncio
 from numpy.testing import assert_array_equal
 
-from starkware.starknet.compiler.compile import (compile_starknet_files)
 from starkware.starknet.testing.starknet import Starknet
 from starkware.starknet.testing.contract import StarknetContract
 from starkware.python.utils import (get_random_instance)
 from starkware.cairo.common.math_utils import (as_int)
 
 CONTRACT_FILE = os.path.join(os.path.dirname(__file__), "stored_list.cairo")
-contract_definition = compile_starknet_files([CONTRACT_FILE], debug_info=True)
 
 def get_random_felt():
     # Not recommended in production
@@ -19,12 +17,7 @@ def get_random_felt():
 
 async def get_contract():
     starknet = await Starknet.empty()
-    contract_address = await starknet.deploy(contract_definition=contract_definition)
-    return StarknetContract(
-        starknet=starknet,
-        abi=contract_definition.abi,
-        contract_address=contract_address,
-    )
+    return await starknet.deploy(CONTRACT_FILE)
 
 @pytest.mark.asyncio
 async def test_push_key():
