@@ -34,5 +34,5 @@ From part 06 on, you will need a modern version of Node.js and run `npm install`
 - [`02_contract`](./02_contract/Readme.md)
 - [`03_authorized_contract`](./03_authorized_contract/Readme.md)
 - [`04_proxy_contract`](./04_proxy_contract/Readme.md)
-- [`05_stored_list](./05_stored_list/Readme.md)
-- [`06_blockchain_data](./06_blockchain_data/Readme.md)
+- [`05_stored_list`](./05_stored_list/Readme.md)
+- [`06_blockchain_data`](./06_blockchain_data/Readme.md)
