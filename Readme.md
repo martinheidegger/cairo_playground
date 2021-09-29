@@ -26,6 +26,8 @@ was done on uncorrupted code without knowing the result.
 
 To run any of the scripts you need to install the cairo version specified in [.cairorc](./.cairorc).
 
+You should also have [`jq`](https://stedolan.github.io/jq/) and Python 3.8 installed.
+
 From part 06 on, you will need a modern version of Node.js and run `npm install` in this folder.  It would also be good to specify a `INFURA_PROJECT_ID` environment variable that can be setup at https://infura.io or - if that is a problem - a `ETHERSCAN_API_KEY` variable to avoid error messages when requesting code.
 
 ---
